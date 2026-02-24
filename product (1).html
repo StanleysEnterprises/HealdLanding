@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heald × Londe — Product Page Reference</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF8F5;
+            --bg-warm: #F3EDE6;
+            --text: #1A1714;
+            --muted: #6B6560;
+            --accent: #C8A87E;
+            --accent-dark: #A68B64;
+            --cream: #EDE7DF;
+            --dark: #1A1714;
+            --white: #FFFFFF;
+            --border: #DDD6CC;
+            --success: #4A7C59;
+            --danger: #C45B4A;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; overflow-x: hidden; }
+
+
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Image Placeholders */
+        .img-ph {
+            background: var(--cream);
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            position: relative;
+        }
+        .img-ph-icon { font-size: 28px; margin-bottom: 6px; }
+        .img-ph-label { font-weight: 600; color: var(--text); font-size: 12px; }
+        .img-ph-hint { font-size: 10px; max-width: 140px; line-height: 1.4; margin-top: 4px; }
+
+        /* ═══ SECTION 1: ANNOUNCEMENT BAR ═══ */
+        .announce {
+            background: var(--dark);
+            color: var(--bg);
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .announce em { color: var(--accent); font-style: normal; }
+
+        /* ═══ SECTION 2: PRODUCT HERO ═══ */
+        .product-hero {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .product-gallery {
+            position: sticky;
+            top: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--bg-warm);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info { padding-top: 8px; }
+
+        /* Bundle Selector */
+        .bundle-selector {
+            margin: 24px 0;
+            padding: 20px;
+            background: var(--bg-warm);
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+
+        .bundle-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .bundle-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bundle-option {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .bundle-option:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .bundle-option.selected {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFFFFF 100%);
+        }
+
+        .bundle-option.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .bundle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .bundle-qty {
+            font-family: var(--serif);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .bundle-badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .bundle-badge.popular {
+            background: var(--success);
+        }
+
+        .bundle-pricing {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .bundle-price {
+            font-family: var(--serif);
+            font-size: 24px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .bundle-price-old {
+            font-size: 16px;
+            color: var(--muted);
+            text-decoration: line-through;
+        }
+
+        .bundle-unit-price {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .bundle-savings {
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+
+        .pi-brand {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 8px;
+        }
+
+        .pi-title {
+            font-family: var(--serif);
+            font-size: 34px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+
+        .pi-desc {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.75;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .pi-stars {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .pi-stars-icons { color: var(--accent); font-size: 14px; letter-spacing: 2px; }
+        .pi-stars-text { font-size: 13px; color: var(--muted); }
+
+        .pi-price {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .pi-price-old {
+            font-size: 18px;
+            text-decoration: line-through;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .pi-price-new {
+            font-family: var(--serif);
+            font-size: 32px;
+            color: var(--text);
+        }
+
+        .pi-price-save {
+            font-size: 13px;
+            color: var(--accent-dark);
+            margin-bottom: 24px;
+        }
+
+        .pi-trust-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .pi-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .pi-trust-icon { font-size: 16px; }
+
+        .atc-btn {
+            width: 100%;
+            padding: 18px 32px;
+            background: var(--dark);
+            color: var(--bg);
+            border: none;
+            border-radius: 60px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--sans);
+        }
+
+        .atc-btn:hover { background: var(--accent); color: var(--dark); }
+
+        .pi-urgency {
+            text-align: center;
+            font-size: 13px;
+            color: var(--danger);
+            margin-top: 14px;
+        }
+
+        .pi-payments {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            opacity: 0.4;
+        }
+
+        .pi-pay-badge {
+            background: var(--cream);
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* ═══ SECTION 3: VALUE PROPS ═══ */
+        .value-props {
+            background: var(--bg-warm);
+            padding: 48px 24px;
+        }
+
+        .value-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+
+        .vp-icon { font-size: 28px; margin-bottom: 10px; }
+        .vp-title { font-family: var(--serif); font-size: 16px; color: var(--text); margin-bottom: 4px; }
+        .vp-text { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.5; }
+
+        /* ═══ SECTION 4: SCIENCE ═══ */
+        .science {
+            padding: 80px 24px;
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .s-tag {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .s-heading {
+            font-family: var(--serif);
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .s-body {
+            font-size: 15px;
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .comp-table {
+            width: 100%;
+            max-width: 540px;
+            margin: 36px auto 0;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .comp-table th {
+            padding: 14px 16px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comp-table thead th { background: var(--dark); color: var(--bg); }
+        .comp-table thead th:first-child { background: var(--dark); }
+
+        .comp-table td {
+            padding: 12px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .comp-table td:first-child { color: var(--muted); font-weight: 400; }
+        .comp-table td:nth-child(2) { color: var(--muted); }
+        .comp-table td:nth-child(3) { color: var(--text); font-weight: 600; }
+
+        .comp-table tbody tr:last-child td { border-bottom: none; }
+
+        .c-check { color: var(--success); }
+        .c-cross { color: var(--danger); }
+
+        /* ═══ SECTION 5: BEFORE / AFTER ═══ */
+        .before-after {
+            background: var(--dark);
+            padding: 80px 24px;
+            color: var(--bg);
+        }
+
+        .ba-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .ba-inner .s-tag { color: var(--accent); }
+        .ba-inner .s-heading { color: var(--bg); }
+
+        .ba-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 36px 0 20px;
+        }
+
+        .ba-card {
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(200,168,126,0.2);
+        }
+
+        .ba-img {
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ba-img .img-ph {
+            height: 100%;
+            border-radius: 0;
+            border: none;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .ba-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .ba-badge-before { background: var(--danger); color: white; }
+        .ba-badge-after { background: var(--success); color: white; }
+
+        .ba-caption {
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        .ba-caption h4 {
+            font-family: var(--serif);
+            font-size: 17px;
+            color: var(--bg);
+            margin-bottom: 2px;
+        }
+
+        .ba-caption p { font-size: 13px; color: rgba(250,248,245,0.5); font-weight: 300; }
+
+        .ba-disclaimer {
+            font-size: 11px;
+            color: rgba(250,248,245,0.3);
+            font-style: italic;
+            margin-bottom: 28px;
+        }
+
+        .ba-cta {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .ba-cta:hover { background: var(--accent-dark); }
+
+        /* ═══ SECTION 6: HOW TO USE ═══ */
+        .howto {
+            padding: 80px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .howto-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .howto-num {
+            font-family: var(--serif);
+            font-size: 56px;
+            color: var(--cream);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .howto-title {
+            font-family: var(--serif);
+            font-size: 18px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .howto-text {
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* ═══ SECTION 7: TESTIMONIALS ═══ */
+        .testimonials {
+            background: var(--bg-warm);
+            padding: 80px 24px;
+        }
+
+        .test-inner {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            padding: 28px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .testimonial:last-child { border-bottom: none; padding-bottom: 0; }
+        .t-stars { color: var(--accent); font-size: 13px; letter-spacing: 3px; margin-bottom: 12px; }
+
+        .t-quote {
+            font-family: var(--serif);
+            font-size: 18px;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .t-author { font-size: 13px; color: var(--muted); }
+        .t-author strong { color: var(--text); font-weight: 500; }
+
+        .t-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            font-size: 9px;
+            padding: 2px 7px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        /* ═══ SECTION 8: FAQ ═══ */
+        .faq {
+            padding: 80px 24px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .faq-item { border-bottom: 1px solid var(--border); }
+
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 0;
+            font-size: 16px;
+            font-family: var(--sans);
+            font-weight: 500;
+            color: var(--text);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-q:hover { color: var(--accent-dark); }
+
+        .faq-toggle {
+            font-size: 20px;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .faq-item.open .faq-a { max-height: 300px; }
+
+        .faq-a p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.75;
+            font-weight: 300;
+            padding-bottom: 20px;
+        }
+
+        /* ═══ SECTION 9: FINAL CTA ═══ */
+        .final-cta {
+            background: var(--dark);
+            padding: 80px 24px;
+            text-align: center;
+            color: var(--bg);
+        }
+
+        .fc-brand {
+            font-family: var(--serif);
+            font-size: 14px;
+            color: var(--accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .fc-heading {
+            font-family: var(--serif);
+            font-size: clamp(26px, 4.5vw, 36px);
+            font-weight: 400;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            color: var(--bg);
+        }
+
+        .fc-sub {
+            font-size: 15px;
+            color: rgba(250,248,245,0.6);
+            font-weight: 300;
+            max-width: 440px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .fc-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 18px 48px;
+            border-radius: 60px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .fc-btn:hover { background: var(--accent-dark); }
+
+        .fc-trust {
+            margin-top: 24px;
+            font-size: 12px;
+            color: rgba(250,248,245,0.35);
+        }
+
+        /* ═══ SECTION 10: FOOTER ═══ */
+        .footer {
+            padding: 40px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer p {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 768px) {
+            .product-hero {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                padding: 24px 16px 40px;
+            }
+            .product-gallery { position: static; }
+            .value-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .howto-grid { grid-template-columns: 1fr; gap: 24px; }
+            .ba-grid { gap: 12px; }
+            .ba-caption { padding: 10px 12px; }
+            .ba-caption h4 { font-size: 15px; }
+            .comp-table th, .comp-table td { padding: 10px 10px; font-size: 12px; }
+            .gallery-thumbs { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+        }
+    </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2066611060577435');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent', {
+        content_name: 'Heald 60% Urea Heel Repair Balm',
+        content_ids: ['52740452286780'],
+        content_type: 'product',
+        value: 35.99,
+        currency: 'USD'
+    });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2066611060577435&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 1: ANNOUNCEMENT BAR                    -->
+<!-- GemPages: Alert / Announcement Bar element     -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="announce">
+    Free U.S. Shipping · <em>Limited Time Offer — 20% Off With Code SMOOTH20</em>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 2: PRODUCT HERO                        -->
+<!-- GemPages: 2-Column Layout (50/50 or 60/40)     -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="product-hero">
+    <!-- LEFT: Image Gallery -->
+    <div class="product-gallery">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://cdn.shopify.com/s/files/1/0957/7237/7404/files/hf_20260216_003601_86e40062-538a-4cd9-aa50-a31b379862b6.png?v=1771205438" 
+                     alt="Heald Heel Balm - Image 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://cdn.shopify.com/s/files/1/0957/7237/7404/files/hf_20260216_012108_947aa4f8-79ae-4299-b53d-9103a20052e6.png?v=1771205438" 
+                     alt="Heald Heel Balm - Image 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://cdn.shopify.com/s/files/1/0957/7237/7404/files/hf_20260216_005158_1b9544cc-3080-4bd8-a452-829a27480684.png?v=1771205438" 
+                     alt="Heald Heel Balm - Image 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://cdn.shopify.com/s/files/1/0957/7237/7404/files/hf_20260216_012632_84cb022e-6e45-4f9c-a526-eb4eadb96b18.png?v=1771205439" 
+                     alt="Heald Heel Balm - Image 4">
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Product Info -->
+    <div class="product-info">
+        <div class="pi-brand">HEALD × LONDE</div>
+        <h1 class="pi-title">60% Urea Heel Repair Balm</h1>
+        <p class="pi-desc">Clinical-strength keratolytic repair for cracked, dry heels. 60% urea dissolves hardened skin at the root. Visible softening in 3 days. Smooth heels by day 7.</p>
+
+        <div class="pi-stars">
+            <span class="pi-stars-icons">★★★★★</span>
+            <span class="pi-stars-text">4.9 (627 reviews)</span>
+        </div>
+
+        <div class="pi-price">
+            <span class="pi-price-old">$44.99</span>
+            <span class="pi-price-new">$35.99</span>
+        </div>
+        <div class="pi-price-save">Save 20% with code SMOOTH20</div>
+
+        <div class="pi-trust-row">
+            <div class="pi-trust-item"><span class="pi-trust-icon">🚚</span> Free U.S. Shipping</div>
+            <div class="pi-trust-item"><span class="pi-trust-icon">🔬</span> Clinically Concentrated</div>
+            <div class="pi-trust-item"><span class="pi-trust-icon">🛡</span> 30-Day Guarantee</div>
+        </div>
+
+        <!-- Bundle Selector -->
+        <div class="bundle-selector">
+            <div class="bundle-title">Choose Your Bundle</div>
+            <div class="bundle-options">
+                
+                <!-- Option 1: Single -->
+                <div class="bundle-option selected" data-quantity="1" data-price="35.99" data-discount="SMOOTH20">
+                    <div class="bundle-header">
+                        <div class="bundle-qty">Buy 1</div>
+                    </div>
+                    <div class="bundle-pricing">
+                        <div class="bundle-price">$35.99</div>
+                        <div class="bundle-price-old">$44.99</div>
+                    </div>
+                    <div class="bundle-unit-price">$35.99 per jar</div>
+                </div>
+
+                <!-- Option 2: Buy 1 Get 1 50% Off -->
+                <div class="bundle-option" data-quantity="2" data-price="53.99" data-discount="BOGO50">
+                    <div class="bundle-header">
+                        <div class="bundle-qty">Buy 1 Get 1 50% Off</div>
+                        <div class="bundle-badge">SAVE 25%</div>
+                    </div>
+                    <div class="bundle-pricing">
+                        <div class="bundle-price">$53.99</div>
+                        <div class="bundle-price-old">$89.99</div>
+                    </div>
+                    <div class="bundle-unit-price">$27.00 per jar</div>
+                    <div class="bundle-savings">💰 Save $17.99</div>
+                </div>
+
+                <!-- Option 3: Buy 2 Get 1 Free -->
+                <div class="bundle-option" data-quantity="3" data-price="71.98" data-discount="BUNDLE2FOR1">
+                    <div class="bundle-header">
+                        <div class="bundle-qty">Buy 2 Get 1 Free</div>
+                        <div class="bundle-badge popular">MOST POPULAR</div>
+                    </div>
+                    <div class="bundle-pricing">
+                        <div class="bundle-price">$71.99</div>
+                        <div class="bundle-price-old">$134.95</div>
+                    </div>
+                    <div class="bundle-unit-price">$24.00 per jar</div>
+                    <div class="bundle-savings">💰 Save $35.99</div>
+                </div>
+
+                <!-- Option 4: Buy 3 Get 2 Free -->
+                <div class="bundle-option" data-quantity="5" data-price="107.97" data-discount="BUNDLE3FOR2">
+                    <div class="bundle-header">
+                        <div class="bundle-qty">Buy 3 Get 2 Free</div>
+                        <div class="bundle-badge">BEST VALUE</div>
+                    </div>
+                    <div class="bundle-pricing">
+                        <div class="bundle-price">$107.99</div>
+                        <div class="bundle-price-old">$224.95</div>
+                    </div>
+                    <div class="bundle-unit-price">$21.59 per jar</div>
+                    <div class="bundle-savings">💰 Save $71.99</div>
+                </div>
+
+            </div>
+        </div>
+
+        <a href="https://shoplonde.com/cart/52740452286780:1" class="atc-btn" id="add-to-cart-btn" style="display:block; text-decoration:none; text-align:center; margin:0 auto;">Add to Cart</a>
+
+        <div class="pi-urgency">🔥 Launch batch — limited stock available</div>
+
+        <div class="pi-payments">
+            <span class="pi-pay-badge">VISA</span>
+            <span class="pi-pay-badge">MASTERCARD</span>
+            <span class="pi-pay-badge">AMEX</span>
+            <span class="pi-pay-badge">APPLE PAY</span>
+            <span class="pi-pay-badge">SHOP PAY</span>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 3: VALUE PROPS                         -->
+<!-- GemPages: Multi-Column (4 cols)                -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="value-props">
+    <div class="value-grid">
+        <div>
+            <div class="vp-icon">🧪</div>
+            <div class="vp-title">60% Urea</div>
+            <div class="vp-text">3–6× stronger than drugstore creams</div>
+        </div>
+        <div>
+            <div class="vp-icon">⚡</div>
+            <div class="vp-title">7-Day Results</div>
+            <div class="vp-text">Visible softening from first application</div>
+        </div>
+        <div>
+            <div class="vp-icon">🧴</div>
+            <div class="vp-title">No-Mess Stick</div>
+            <div class="vp-text">Clean twist-up applicator, no greasy jars</div>
+        </div>
+        <div>
+            <div class="vp-icon">🌿</div>
+            <div class="vp-title">Clean Formula</div>
+            <div class="vp-text">Jojoba oil, avocado oil, aloe vera</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 4: SCIENCE / EDUCATION                 -->
+<!-- GemPages: Single Column, centered              -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="science reveal">
+    <div class="s-tag">THE SCIENCE</div>
+    <h2 class="s-heading">Why 60% urea is the only concentration that actually repairs cracked heels.</h2>
+    <p class="s-body">Most heel creams contain 10–25% urea — enough to moisturize, but not enough to fix the problem. At 60%, urea becomes a keratolytic: it chemically dissolves the excess keratin protein that causes thick, cracked skin.</p>
+    <p class="s-body">This isn't surface-level hydration. It's structural repair from the inside out.</p>
+
+    <table class="comp-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Drugstore Cream</th>
+                <th>Heald × Londe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Urea</td>
+                <td>10–25%</td>
+                <td><span class="c-check">60%</span></td>
+            </tr>
+            <tr>
+                <td>Mechanism</td>
+                <td>Surface moisturizing</td>
+                <td><span class="c-check">Deep keratolytic repair</span></td>
+            </tr>
+            <tr>
+                <td>Results</td>
+                <td>2–4 weeks (if any)</td>
+                <td><span class="c-check">3–7 days</span></td>
+            </tr>
+            <tr>
+                <td>Application</td>
+                <td>Messy jars</td>
+                <td><span class="c-check">Clean twist-up stick</span></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 5: BEFORE / AFTER                      -->
+<!-- GemPages: 2-Column on dark background          -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="before-after">
+    <div class="ba-inner reveal">
+        <div class="s-tag" style="color:#C8A87E;">REAL RESULTS</div>
+        <h2 class="s-heading" style="color:#FAF8F5;">See the difference in 14 days.</h2>
+
+        <div class="ba-grid">
+            <div class="ba-card">
+                <div class="ba-img">
+                    <span class="ba-badge ba-badge-before">Before</span>
+                    <img src="https://cdn.shopify.com/s/files/1/0957/7237/7404/files/hf_20260216_035600_377467fe-9925-40ff-87df-63c7ca4c3997.png?v=1771216167" 
+                         alt="Before treatment - cracked heels" 
+                         style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+                </div>
+                <div class="ba-caption">
+                    <h4>Day 1</h4>
+                    <p>Dry, cracked, painful fissures</p>
+                </div>
+            </div>
+            <div class="ba-card">
+                <div class="ba-img">
+                    <span class="ba-badge ba-badge-after">After</span>
+                    <img src="https://cdn.shopify.com/s/files/1/0957/7237/7404/files/hf_20260216_042903_fc55d5c0-e34b-4c47-8d0b-b450b13effe2.png?v=1771216336" 
+                         alt="After treatment - smooth heels" 
+                         style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+                </div>
+                <div class="ba-caption">
+                    <h4>Day 14</h4>
+                    <p>Smooth, healthy, restored skin</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="ba-disclaimer">Individual results may vary. Photos show typical results with consistent daily application.</p>
+
+        <a href="https://shoplonde.com/cart/52740452286780:1" class="ba-cta">Try It Risk-Free →</a>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 6: HOW TO USE                          -->
+<!-- GemPages: 3-Column Layout                      -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="howto reveal">
+    <div class="s-tag">HOW TO USE</div>
+    <h2 class="s-heading">Three steps. Sixty seconds. That's it.</h2>
+
+    <div class="howto-grid">
+        <div>
+            <div class="howto-num">01</div>
+            <div class="howto-title">Twist Up</div>
+            <div class="howto-text">Click the base to raise the balm. A thin layer is all you need.</div>
+        </div>
+        <div>
+            <div class="howto-num">02</div>
+            <div class="howto-title">Apply</div>
+            <div class="howto-text">Glide directly onto dry, cracked heels. No hands, no mess, no residue.</div>
+        </div>
+        <div>
+            <div class="howto-num">03</div>
+            <div class="howto-title">Repair</div>
+            <div class="howto-text">Apply once daily, ideally before bed. Softening starts within 72 hours.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 7: TESTIMONIALS                        -->
+<!-- GemPages: Testimonial Blocks on warm background-->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="testimonials">
+    <div class="test-inner">
+        <div class="s-tag" style="text-align:center;">WHAT PEOPLE ARE SAYING</div>
+        <h2 class="s-heading" style="text-align:center; margin-bottom:32px;">The reviews speak for themselves.</h2>
+
+        <div class="testimonial">
+            <div class="t-stars">★ ★ ★ ★ ★</div>
+            <div class="t-quote">"I've spent hundreds on pedicures and creams over the years. This is the first thing that actually fixed the problem instead of temporarily covering it up. My heels are softer than they've been in a decade."</div>
+            <div class="t-author"><strong>Sarah M.</strong> · Verified Buyer <span class="t-badge">Verified</span></div>
+        </div>
+
+        <div class="testimonial">
+            <div class="t-stars">★ ★ ★ ★ ★</div>
+            <div class="t-quote">"My wife bought this for me because she was tired of my rough feet catching on the sheets. I'm not a skincare guy at all — but even I have to admit, this thing works. Day 5 and the cracks are basically gone."</div>
+            <div class="t-author"><strong>James R.</strong> · Verified Buyer <span class="t-badge">Verified</span></div>
+        </div>
+
+        <div class="testimonial">
+            <div class="t-stars">★ ★ ★ ★ ★</div>
+            <div class="t-quote">"As a nurse on my feet 12 hours a day, my heels were destroyed. The 60% urea is no joke — it dissolves the hard skin like nothing else I've used. Already reordered."</div>
+            <div class="t-author"><strong>Priya K.</strong> · Verified Buyer <span class="t-badge">Verified</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 8: FAQ                                 -->
+<!-- GemPages: Accordion / Collapsible element      -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="faq reveal">
+    <h2 class="s-heading">Common Questions</h2>
+
+    <div class="faq-item">
+        <button class="faq-q">Is 60% urea safe for my skin? <span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>Yes. Urea is naturally occurring in your skin. At 60%, it's clinical-strength — powerful enough to dissolve hardened skin but safe for external use on heels, feet, and elbows. Avoid open wounds and sensitive areas. If you have diabetes or circulation issues, consult your doctor before use.</p></div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-q">How long does one tube last? <span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>With daily use on both heels, one 40g tube lasts 4–6 weeks. After your heels are repaired (usually 7–14 days), switch to 2–3 applications per week for maintenance — extending the tube to 8+ weeks.</p></div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-q">How is this different from regular foot cream? <span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>Most foot creams contain 10–25% urea and work as moisturizers. Heald contains 60% — a keratolytic concentration that chemically dissolves the hardened keratin causing your cracks. It's repair, not just hydration.</p></div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-q">Can I use it on hands or elbows? <span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>Absolutely. Heald works on any area of thick, dry, cracked skin — heels, elbows, knuckles, feet. The twist-up stick makes targeted application easy.</p></div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-q">What if it doesn't work for me? <span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>We offer a 30-day money-back guarantee. If you don't see results, email us for a full refund. We'll even let you keep the product.</p></div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-q">How fast will my order arrive? <span class="faq-toggle">+</span></button>
+        <div class="faq-a"><p>Orders ship within 1–2 business days via our U.S. fulfillment center. Standard delivery takes 8–12 business days. You'll receive tracking via email.</p></div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 9: FINAL CTA                           -->
+<!-- GemPages: Single Column, dark background       -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<section class="final-cta">
+    <div class="fc-brand">HEALD × LONDE</div>
+    <h2 class="fc-heading">Smoother heels in 7 days.<br>Guaranteed.</h2>
+    <p class="fc-sub">Try Heald risk-free with our 30-day money-back guarantee. If you don't see visible improvement, we'll refund every cent.</p>
+    <a href="https://shoplonde.com/cart/52740452286780:1" class="fc-btn">Get 20% Off → $35.99</a>
+    <div class="fc-trust">🛡 30-day guarantee · 🚚 Free U.S. shipping · 📦 Ships in 1–2 days</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 10: FOOTER                             -->
+<!-- GemPages: Use Shopify default footer           -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<footer class="footer">
+    <p>
+        These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Results may vary.
+        <br><br>
+        © 2026 Londe. All rights reserved.
+    </p>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // FAQ
+    document.querySelectorAll('.faq-q').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.parentElement;
+            const open = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!open) item.classList.add('open');
+        });
+    });
+
+    // Bundle Selector
+    const bundleOptions = document.querySelectorAll('.bundle-option');
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const variantId = '52740452286780'; // Your variant ID
+
+    bundleOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            // Remove selected class from all options
+            bundleOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            option.classList.add('selected');
+            
+            // Get quantity, price, and discount code from data attributes
+            const quantity = option.getAttribute('data-quantity');
+            const price = option.getAttribute('data-price');
+            const discountCode = option.getAttribute('data-discount');
+            
+            // Update the Add to Cart button with the correct discount code for this bundle
+            addToCartBtn.href = `https://shoplonde.com/cart/${variantId}:${quantity}`;
+            addToCartBtn.textContent = `Add to Cart`;
+        });
+    });
+
+    // Meta Pixel: Track AddToCart on all links to Shopify cart
+    document.querySelectorAll('a[href*="shoplonde.com/cart"]').forEach(link => {
+        link.addEventListener('click', function() {
+            const qty = this.href.match(/:(\d+)/);
+            const quantity = qty ? parseInt(qty[1]) : 1;
+            fbq('track', 'AddToCart', {
+                content_name: 'Heald 60% Urea Heel Repair Balm',
+                content_ids: ['52740452286780'],
+                content_type: 'product',
+                value: 35.99 * quantity,
+                currency: 'USD',
+                num_items: quantity
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
